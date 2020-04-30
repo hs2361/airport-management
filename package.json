@@ -1,0 +1,19 @@
+{
+  "name": "airport-management",
+  "version": "1.0.0",
+  "description": "An airport management software made as a part of the DBS project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hs2361/airport-management.git"
+  },
+  "author": "Harsh Sharma, Debaditya Pal & Prakul Tandon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hs2361/airport-management/issues"
+  },
+  "homepage": "https://github.com/hs2361/airport-management#readme"
+}
