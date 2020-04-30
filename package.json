@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/hs2361/airport-management/issues"
   },
-  "homepage": "https://github.com/hs2361/airport-management#readme"
+  "homepage": "https://github.com/hs2361/airport-management#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1"
+  }
 }
