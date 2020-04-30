@@ -1,0 +1,78 @@
+<%- include("partials/header") %>
+    <div class="container">
+        <h1 class = "text-center pt-5">Add new employee</h1>
+
+        <div class="container">
+            <form action="/employees/new" method="post" class = "w-50 mx-auto pt-5">
+                <div class="form-group">
+                    <input class = "form-control" type="text" name = "name" placeholder="Employee name" required>
+                </div>
+
+                <div class="form-group py-3" id = "employee-type">
+                    <p class = "text-muted">Employee type</p>
+                    <label class="radio mx-3"><input value = "airport" type="radio" name="employee-type" checked>Airport Employee</label>
+                    <label class="radio mx-3"><input value = "airline" type="radio" name="employee-type">Airline Employee</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="department" id = "department-label" class = 'text-muted'>Airport Department</label>
+                    <select id = "department" class = "form-control" type="text" name = "department" placeholder="Airport Department">
+                        <option value="1">Department 1</option>
+                        <option value="2">Department 2</option>
+                        <option value="3">Department 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="airline" id = "airline-department-label" class = 'text-muted'>Airline Department</label>
+                    <select id = "airline" class = "form-control" type="text" name = "airline-department" placeholder="Airline Department">
+                        <option value="1">Department 1</option>
+                        <option value="2">Department 2</option>
+                        <option value="3">Department 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="airline-name" id = "airline-name-label" class = 'text-muted'>Airline Name</label>
+                    <select id = "airline-name" class = "form-control" type="text" name = "airline-name" placeholder="Airline Name">
+                        <option value="1">Airline 1</option>
+                        <option value="2">Airline 2</option>
+                        <option value="3">Airline 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group d-flex flex-row justify-content-center mt-5">
+                    <input type = "submit" class = "btn btn-primary btn-lg" value = "Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+
+<script>
+    $("#airline").hide()
+    $("#airline-department-label").hide()
+    $("#airline-name").hide()
+    $("#airline-name-label").hide()
+
+    $("#employee-type").on("click",()=>{
+        var type = $('input[name="employee-type"]:checked').val();
+        if(type === 'airline'){
+            $("#department").hide()
+            $("#department-label").hide()
+            $("#airline").show()
+            $("#airline-department-label").show()
+            $("#airline-name").show()
+            $("#airline-name-label").show()
+        }
+        else if (type === 'airport')
+        {
+            $("#department").show()
+            $("#department-label").show()
+            $("#airline").hide()
+            $("#airline-department-label").hide()
+            $("#airline-name").hide()
+            $("#airline-name-label").hide()
+        }
+    })
+</script>
+<%- include("partials/footer") %>
