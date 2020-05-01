@@ -1,0 +1,51 @@
+<%- include("partials/header") %>
+    <style>
+        h1{
+            padding-bottom: 40px;
+        }
+        .table th{
+            text-align: center;
+            width: 25%;
+        }
+        .table td{
+            text-align: center;
+            width: 25%;
+        }
+    </style>
+    <div class="container">
+        <h1 class = "text-center pt-5">Airport Management System</h1>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                <th scope="col">Employees</th>
+                <th scope="col">Flight</th>
+                <th scope="col">Crew</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="/employees/new" type="button" class="btn btn-primary btn-lg btn-block">Add Employee</a>
+                    </td>
+                    <td>
+                        <a href="/flights/new" type="button" class="btn btn-primary btn-lg btn-block">Add Flight</a>
+                    </td>
+                    <td>
+                        <a href="/crew/new" type="button" class="btn btn-primary btn-lg btn-block">Add Crew</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/employees" type="button" class="btn btn-primary btn-lg btn-block">View Employees</a>
+                    </td>
+                    <td>
+                        <a href="/flights" type="button" class="btn btn-primary btn-lg btn-block">View Flights</a>
+                    </td>
+                    <td>
+                        <a href="/crew" type="button" class="btn btn-primary btn-lg btn-block">View Crew</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<%- include("partials/footer") %>

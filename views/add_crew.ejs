@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+    <div class="container">
+        <h1 class = "text-center pt-5">Assign new crew</h1>
+        <div class="container">
+            <form action="/crew" method="post" class = "w-50 mx-auto pt-5">
+                    
+                    <div class="form-group">
+                        <label for="employee" id = "employee-label" class = 'text-muted'>Select Airline Employee</label>
+                        <select id = "employee" class = "form-control" type="text" name = "employee" placeholder="Registered Employee">
+                            <option value="1">Employee 1</option>
+                            <option value="2">Employee 2</option>
+                            <option value="3">Employee 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="flight" id = "flight-label" class = 'text-muted'>Select Flight</label>
+                        <select id = "flight" class = "form-control" type="text" name = "flight" placeholder="Select Flight">
+                            <option value="1">Flight 1</option>
+                            <option value="2">Flight 2</option>
+                            <option value="3">Flight 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group d-flex flex-row justify-content-center mt-5">
+                        <input type = "submit" class = "btn btn-primary btn-lg" value = "Submit">
+                    </div>
+
+            </form>
+        </div>
+    </div>
+<%- include("partials/footer") %>
