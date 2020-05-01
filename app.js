@@ -8,7 +8,7 @@ app.set("view engine","ejs")
 app.use(express.static(__dirname + '/public/'));
 
 app.get("/", (req,res) => {
-    res.status(200).send("Landing page")
+    res.render("landing_page")
 })
 
 app.get("/employees", (req,res) => {
@@ -30,6 +30,14 @@ app.get("/flights", (req,res) => {
 
 app.get("/flights/new", (req,res) => {
     res.render("add_flight")
+})
+
+app.get("/crew", (req,res) => {
+    res.render("crew")
+})
+
+app.get("/crew/new", (req,res) => {
+    res.render("add_crew")
 })
 
 app.listen(PORT, () => {
