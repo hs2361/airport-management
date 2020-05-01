@@ -1,0 +1,80 @@
+<%- include("partials/header") %>
+    <div class="container">
+        <h1 class = "text-center pt-5">Add new flight</h1>
+
+        <div class="container">
+            <form action="/flights" method="post" class = "w-50 mx-auto pt-4">
+                <div class="form-group">
+                    <label for="airline" id = "airline-label" class = 'text-muted'>Airline</label>
+                    <select id = "airline" class = "form-control" type="text" name = "airline" placeholder="Airline" required>
+                        <option value="1">Airline 1</option>
+                        <option value="2">Airline 2</option>
+                        <option value="3">Airline 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="origin" id = "origin-label" class = 'text-muted'>Origin</label>
+                    <select id = "origin" class = "form-control" type="text" name = "origin" placeholder="Origin" required>
+                        <option value="1">Origin 1</option>
+                        <option value="2">Origin 2</option>
+                        <option value="3">Origin 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination" id = "destination-label" class = 'text-muted'>Destination</label>
+                    <select id = "destination" class = "form-control" type="text" name = "destination" placeholder="Destination" required>
+                        <option value="1">Destination 1</option>
+                        <option value="2">Destination 2</option>
+                        <option value="3">Destination 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" id = "status-label" class = 'text-muted'>Flight Status</label>
+                    <select id = "status" class = "form-control" type="text" name = "status" placeholder="Flight Status">
+                        <option value="1">Status 1</option>
+                        <option value="2">Status 2</option>
+                        <option value="3">Status 3</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="datepicker" class = "text-muted">Date and Time</label>
+                    <input class = "form-control w-50" id="datepicker" type="text" name="date" required>
+                </div>
+
+                <div class="form-group d-flex flex-row justify-content-center mt-5">
+                    <input type = "submit" class = "btn btn-primary btn-lg" value = "Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+
+<link rel="stylesheet" href="/datetimepicker-master/build/jquery.datetimepicker.min.css">
+<script src="/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<script>
+    const now = new Date()
+    const times = []
+    for(let h = now.getHours(); h < 24; h++)
+    {
+        let m = 0
+        if(h == now.getHours())
+        {
+            m = now.getMinutes()
+        }
+        for(; m < 60; m++)
+        {
+            times.push(`${h}:${m}`)
+        }
+    }
+
+    $('#datepicker').datetimepicker({
+        format:'d/m/Y H:i',
+        minDate: '0',
+        allowTimes: times,
+        minTime: `${now.getHours()}:${now.getMinutes()}`
+    });
+</script>
+<%- include("partials/footer") %>
