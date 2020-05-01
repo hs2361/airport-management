@@ -3,9 +3,10 @@ USE dbs;
 
 CREATE TABLE IF NOT EXISTS departments
 (
-    d_id   INT AUTO_INCREMENT PRIMARY KEY,
-    d_name VARCHAR(255) NOT NULL,
-    salary DECIMAL      NOT NULL
+    d_id    INT AUTO_INCREMENT PRIMARY KEY,
+    d_name  VARCHAR(255) NOT NULL,
+    salary  DECIMAL      NOT NULL,
+    airport BOOL         NOT NULL DEFAULT true
 );
 
 CREATE TABLE IF NOT EXISTS employees
@@ -28,8 +29,8 @@ CREATE TABLE IF NOT EXISTS airlineEmployees
 (
     e_id INT,
     a_id INT,
-    FOREIGN KEY (e_id) REFERENCES employees (e_id),
-    FOREIGN KEY (a_id) REFERENCES airlines (a_id)
+    FOREIGN KEY (e_id) REFERENCES employees (e_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (a_id) REFERENCES airlines (a_id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS flights
