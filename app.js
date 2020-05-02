@@ -93,6 +93,44 @@ app.get("/flights", (req,res) => {
     res.render("flights")
 })
 
+app.post("/flights", (req,res)=> {
+    mySqlConnection.query(
+        `insert into flights(a_id, origin, destination, f_status ,f_time) values(
+            '${req.body.airline}', '${req.body.origin}', '${req.body.destination}',
+            '${req.body.status}', '${req.body.date}'
+        )`,
+        (err) => {
+            if(err)
+                res.status(500).send(err)
+            else
+            {
+                res.redirect("/flights")
+            }
+        }
+    )
+})
+
+app.put("/flights/:f_id", (req,res)=>{
+    mySqlConnection.query(
+        `update flights set
+            a_id = '${req.body.airline}',
+            origin = '${req.body.origin}',
+            destination = '${req,body.destination}',
+            f_status = '${req.body.status}',
+            f_time = '${req.body.date}'
+            where f_id = '${req.params.f_id}'
+        `,
+        (err) => {
+            if(err)
+                res.status(500).send(err)
+            else
+            {
+                res.redirect("/flights")
+            }
+        }
+    )
+})
+
 app.get("/flights/new", (req,res) => {
     res.render("add_flight")
 })
