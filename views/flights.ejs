@@ -1,3 +1,31 @@
 <%- include("partials/header") %>
+    <style>
+        h1{
+            padding-bottom: 40px;
+        }
+        .table {
+            text-align: center;
+        }
+    </style>
     <h1 class = "text-center pt-5">Flight Data</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope='col'>Flight ID</th>
+            <th scope='col'>Airlines</th>
+            <th scope='col'>Origin</th>
+            <th scope='col'>Destination</th>
+            <th scope='col'>Status</th>
+            <th scope='col'>Time</th>
+        </thead>
+        <% for(var i = 0; i <flights.length; i++) { %>
+            <tr>
+                <td><%=flights[i].f_id %></td>
+                <td><%=flights[i].a_name %></td>
+                <td><%=flights[i].origin %></td>
+                <td><%=flights[i].destination %></td>
+                <td><%=flights[i].f_status %></td>
+                <td><%=flights[i].f_time %></td>
+            </tr>
+        <% } %>
+    </table>
 <%- include("partials/footer") %>
