@@ -90,7 +90,15 @@ app.delete("/employees/:e_id", (req,res) => {
 })
 
 app.get("/flights", (req,res) => {
-    res.render("flights")
+    mySqlConnection.query(
+        `select flights.*, airlines.a_name from flights, airlines where flights.a_id = airlines.a_id`,
+        (err,rows) => {
+            if(err)
+                res.status(500).send(err)
+            else
+                res.render("flights", {flights: rows})
+        }
+    )
 })
 
 app.post("/flights", (req,res)=> {
@@ -111,7 +119,17 @@ app.post("/flights", (req,res)=> {
 })
 
 app.get("/flights/new", (req,res) => {
-    res.render("add_flight")
+    mySqlConnection.query(
+        `select a_id, a_name from airlines`,
+        (err, rows) => {
+            if(err)
+                res.status(500).send(err)
+            else
+            {
+                res.render("add_flight", {airlines: rows})
+            }
+        }
+    )
 })
 
 app.put("/flights/:f_id", (req,res)=>{
