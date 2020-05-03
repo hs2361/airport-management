@@ -206,7 +206,16 @@ app.put("/flights/:f_id", (req,res)=>{
 })
 
 app.get("/crew", (req,res) => {
-    res.render("crew")
+    mySqlConnection.query(
+        `select employees.e_name, airlines.a_name, flights.origin, flights.destination, flights.f_time from employees, airlines, crew, flights where employees.e_id=crew.e_id and flights.f_id = crew.f_id and flights.a_id = airlines.a_id`,
+        (err,rows) => {
+            if(err)
+                res.status(500).send(err)
+            else{
+                res.render("crew", {crew: rows})
+            }
+        }
+    )
 })
 
 app.post("/crew", (req,res)=> {
@@ -222,7 +231,25 @@ app.post("/crew", (req,res)=> {
 })
 
 app.get("/crew/new", (req,res) => {
-    res.render("add_crew")
+    mySqlConnection.query(
+        `select employees.e_id, employees.e_name from employees, airlineEmployees where employees.e_id = airlineEmployees.e_id`,
+        (e_err,e_rows) => {
+            if (e_err)
+                res.status(500).send(e_err)
+            else{
+                mySqlConnection.query(
+                    `select flights.f_id, flights.origin, flights.destination, airlines.a_name from flights, airlines where flights.a_id = airlines.a_id`,
+                    (f_err, f_rows) => {
+                        if(f_err)
+                            res.status(500).send(f_err)
+                        else{
+                            res.render("add_crew", {flights: f_rows, employees: e_rows})
+                        }
+                    }
+                )
+            }
+        }
+    )
 })
 
 app.listen(PORT, () => {
