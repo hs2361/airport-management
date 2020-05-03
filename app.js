@@ -110,6 +110,10 @@ app.post("/flights", (req,res)=> {
     )
 })
 
+app.get("/flights/new", (req,res) => {
+    res.render("add_flight")
+})
+
 app.put("/flights/:f_id", (req,res)=>{
     mySqlConnection.query(
         `update flights set
@@ -131,12 +135,20 @@ app.put("/flights/:f_id", (req,res)=>{
     )
 })
 
-app.get("/flights/new", (req,res) => {
-    res.render("add_flight")
-})
-
 app.get("/crew", (req,res) => {
     res.render("crew")
+})
+
+app.post("/crew", (req,res)=> {
+    mySqlConnection.query(
+        `insert into crew (f_id, e_id) values ('${req.body.flight}', '${req.body.employee}')`,
+        (err,rows)=> {
+            if(err)
+                res.status(500).send(err)
+            else
+                res.redirect("/crew")
+        }
+    )
 })
 
 app.get("/crew/new", (req,res) => {
