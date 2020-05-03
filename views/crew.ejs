@@ -1,3 +1,29 @@
 <%- include("partials/header") %>
+    <style>
+        h1{
+            padding-bottom: 40px;
+        }
+        .table {
+            text-align: center;
+        }
+    </style>
     <h1 class = "text-center pt-5">Crew Data</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope='col'>Crew Name</th>
+            <th scope='col'>Airlines</th>
+            <th scope='col'>Origin</th>
+            <th scope='col'>Destination</th>
+            <th scope='col'>Time</th>
+        </thead>
+        <% for(var i = 0; i <crew.length; i++) { %>
+            <tr>
+                <td><%=crew[i].e_name %></td>
+                <td><%=crew[i].a_name %></td>
+                <td><%=crew[i].origin %></td>
+                <td><%=crew[i].destination %></td>
+                <td><%=crew[i].f_time %></td>
+            </tr>
+        <% } %>
+    </table>
 <%- include("partials/footer") %>

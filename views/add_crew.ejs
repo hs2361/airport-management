@@ -7,18 +7,18 @@
                     <div class="form-group">
                         <label for="employee" id = "employee-label" class = 'text-muted'>Select Airline Employee</label>
                         <select id = "employee" class = "form-control" type="text" name = "employee" placeholder="Registered Employee">
-                            <option value="1">Employee 1</option>
-                            <option value="2">Employee 2</option>
-                            <option value="3">Employee 3</option>
+                            <% for(var i=0; i<employees.length; i++) { %>
+                                <option value="<%= employees[i].e_id %>"><%= employees[i].e_name%></option>
+                            <% } %>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="flight" id = "flight-label" class = 'text-muted'>Select Flight</label>
                         <select id = "flight" class = "form-control" type="text" name = "flight" placeholder="Select Flight">
-                            <option value="1">Flight 1</option>
-                            <option value="2">Flight 2</option>
-                            <option value="3">Flight 3</option>
+                            <% for(var i=0; i<flights.length; i++) { %>
+                                <option value="<%= flights[i].f_id %>"><%= flights[i].origin%> -> <%= flights[i].destination%> (<%= flights[i].a_name%>) </option>
+                            <% } %>
                         </select>
                     </div>
 
