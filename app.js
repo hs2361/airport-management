@@ -1,12 +1,14 @@
-const express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    PORT = process.env.PORT || 5000
-mySqlConnection = require("./db/db")
+const express           = require('express'),
+      app               = express(),
+      bodyParser        = require('body-parser'),
+      PORT              = process.env.PORT || 5000,
+      mySqlConnection   = require("./db/db"),
+      methodOverride    = require("method-override")
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + '/public/'));
+app.use(methodOverride("_method"))
 
 const airportDepts = [], airlineDepts = []
 var airlines = [], airlineEmpl = [], airportEmpl = []
@@ -37,27 +39,30 @@ mySqlConnection.query(
     }
 )
 
-mySqlConnection.query(
-    "select airlines.a_name, employees.e_name, departments.d_name, airlineEmployees.* from airlines, employees ,airlineEmployees, departments where airlines.a_id = airlineEmployees.a_id and employees.d_id = departments.d_id and employees.e_id = airlineEmployees.e_id",
-    (err, employees) => {
-        if (err)
-            console.log(err);
-        else {
-            airlineEmpl = employees
-            mySqlConnection.query(
-                "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
-                (err2, empl) => {
-                    if (err2)
-                        console.log(err2);
-                    else {
-                        airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
-                        airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
-                    }
-                })
+fetchEmployeeData = () => {
+    mySqlConnection.query(
+        "select airlines.a_name, employees.e_name, departments.d_name, airlineEmployees.* from airlines, employees ,airlineEmployees, departments where airlines.a_id = airlineEmployees.a_id and employees.d_id = departments.d_id and employees.e_id = airlineEmployees.e_id",
+        (err, employees) => {
+            if (err)
+                console.log(err);
+            else {
+                airlineEmpl = employees
+                mySqlConnection.query(
+                    "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
+                    (err2, empl) => {
+                        if (err2)
+                            console.log(err2);
+                        else {
+                            airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
+                            airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
+                        }
+                    })
+            }
         }
-    }
-)
+    )
+}
 
+fetchEmployeeData()
 app.get("/", (req, res) => {
     res.render("landing_page")
 })
@@ -95,7 +100,29 @@ app.post("/employees", (req, res) => {
                             if (err2)
                                 res.status(500).send(err2)
                             else
-                                res.redirect("/employees")
+                                {
+                                    mySqlConnection.query(
+                                        "select airlines.a_name, employees.e_name, departments.d_name, airlineEmployees.* from airlines, employees ,airlineEmployees, departments where airlines.a_id = airlineEmployees.a_id and employees.d_id = departments.d_id and employees.e_id = airlineEmployees.e_id",
+                                        (err, employees) => {
+                                            if (err)
+                                                console.log(err);
+                                            else {
+                                                airlineEmpl = employees
+                                                mySqlConnection.query(
+                                                    "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
+                                                    (err2, empl) => {
+                                                        if (err2)
+                                                            console.log(err2);
+                                                        else {
+                                                            airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
+                                                            airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
+                                                            res.redirect("/employees")
+                                                        }
+                                                    })
+                                            }
+                                        }
+                                    )
+                                }
                         }
                     )
                 }
@@ -129,7 +156,29 @@ app.delete("/employees/:e_id", (req, res) => {
             if (err)
                 res.status(500).send(err)
             else
-                res.redirect("/employees")
+            {
+                mySqlConnection.query(
+                    "select airlines.a_name, employees.e_name, departments.d_name, airlineEmployees.* from airlines, employees ,airlineEmployees, departments where airlines.a_id = airlineEmployees.a_id and employees.d_id = departments.d_id and employees.e_id = airlineEmployees.e_id",
+                    (err, employees) => {
+                        if (err)
+                            console.log(err);
+                        else {
+                            airlineEmpl = employees
+                            mySqlConnection.query(
+                                "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
+                                (err2, empl) => {
+                                    if (err2)
+                                        console.log(err2);
+                                    else {
+                                        airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
+                                        airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
+                                        res.redirect("/employees")
+                                    }
+                                })
+                        }
+                    }
+                )
+            }
         }
     )
 })

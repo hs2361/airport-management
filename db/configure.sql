@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS crew
 (
     f_id INT,
     e_id INT,
-    FOREIGN KEY (f_id) REFERENCES flights (f_id),
-    FOREIGN KEY (e_id) REFERENCES airlineEmployees (e_id),
-    CONSTRAINT same_airline CHECK ( (SELECT a_id from airlineEmployees where crew.e_id = airlineEmployees.e_id ) = (select a_id from flights where crew.f_id = flights.f_id) ) ENFORCED
+    FOREIGN KEY (f_id) REFERENCES flights (f_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (e_id) REFERENCES airlineEmployees (e_id) ON UPDATE CASCADE ON DELETE CASCADE
+#     CONSTRAINT same_airline CHECK ( (SELECT a_id from airlineEmployees where crew.e_id = airlineEmployees.e_id ) = (select a_id from flights where crew.f_id = flights.f_id) ) ENFORCED
 );
