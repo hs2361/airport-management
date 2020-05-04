@@ -16,6 +16,7 @@
             <th scope='col'>Destination</th>
             <th scope='col'>Status</th>
             <th scope='col'>Time</th>
+            <th scope='col'>Edit Flight</th>
         </thead>
         <% for(var i = 0; i < flights.length; i++) { %>
             <tr>
@@ -25,6 +26,11 @@
                 <td><%=flights[i].destination %></td>
                 <td><%=flights[i].f_status %></td>
                 <td><%=flights[i].f_time %></td>
+                <td>
+                    <form action="/flights/<%= flights[i].f_id %>" method="get">
+                        <input type="submit" class = "btn btn-danger" value="Edit">
+                    </form>
+                </td>
             </tr>
         <% } %>
     </table>
