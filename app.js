@@ -224,12 +224,34 @@ app.get("/flights/new", (req, res) => {
     )
 })
 
+app.get("/flights/:f_id", (req, res) => {
+    mySqlConnection.query(
+        `select a_id, a_name from airlines`,
+        (err, rows) => {
+            if (err)
+                res.status(500).send(err)
+            else {
+                mySqlConnection.query(
+                    `select * from flights where f_id = '${req.params.f_id}'`,
+                    (err2, rows2) => {
+                        if(err2)
+                            res.status(500).send(err2)
+                        else {
+                            res.render("edit_flight", {airlines: rows, flightdata: rows2})
+                        }
+                    }
+                )
+            }
+        }
+    )
+})
+
 app.put("/flights/:f_id", (req, res) => {
     mySqlConnection.query(
         `update flights set
             a_id = '${req.body.airline}',
             origin = '${req.body.origin}',
-            destination = '${req, body.destination}',
+            destination = '${req.body.destination}',
             f_status = '${req.body.status}',
             f_time = '${req.body.date}'
             where f_id = '${req.params.f_id}'

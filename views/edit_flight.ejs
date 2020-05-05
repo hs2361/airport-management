@@ -1,0 +1,75 @@
+<%- include("partials/header") %>
+    <div class="container">
+        <h1 class = "text-center pt-5">Edit flight</h1>
+
+        <div class="container">
+            <form action="/flights/<%= flightdata[0].f_id %>?_method=PUT" method="post" class = "w-50 mx-auto pt-4">
+                <div class="form-group">
+                    <label for="airline" id = "airline-label" class = 'text-muted'>Airline</label>
+                    <select id = "airline" class = "form-control" type="text" name = "airline" placeholder="Airline" required>
+                        <% for(var i=0; i<airlines.length; i++) { %>
+                            <% var selected = ( flightdata[0].a_id == airlines[i].a_id ) ? "selected" : ""; %>
+                            <option value="<%= airlines[i].a_id %>" <%= selected %> > <%= airlines[i].a_name%> </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="origin" id = "origin-label" class = 'text-muted'>Origin</label>
+                    <input id = "origin" class = "form-control" type="text" name = "origin" placeholder="Origin" value="<%=flightdata[0].origin%>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination" id = "destination-label" class = 'text-muted'>Destination</label>
+                    <input id = "destination" class = "form-control" type="text" name = "destination" placeholder="Destination" value="<%=flightdata[0].destination%>" required></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="status" id = "status-label" class = 'text-muted'>Flight Status</label>
+                    <select id = "status" class = "form-control" type="text" name = "status" placeholder="Flight Status">
+                        <% var options = ["On Time", "Security", "Boarding", "Delayed", "Cancelled"] %>
+                        <% for(var i=0; i<options.length; i++) { %>
+                            <% var selected2 = ( flightdata[0].f_status == options[i] ) ? "selected" : ""; %>
+                            <option value="<%=options[i]%>" <%= selected2 %> > <%=options[i]%> </option>
+                        <% } %>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="datepicker" class = "text-muted">Date and Time</label>
+                    <input class = "form-control w-50" id="datepicker" type="text" name="date" required>
+                </div>
+
+                <div class="form-group d-flex flex-row justify-content-center mt-5">
+                    <input type = "submit" class = "btn btn-primary btn-lg" value = "Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+
+<link rel="stylesheet" href="/datetimepicker-master/build/jquery.datetimepicker.min.css">
+<script src="/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+<script>
+    const now = new Date()
+    const times = []
+    for(let h = now.getHours(); h < 24; h++)
+    {
+        let m = 0
+        if(h == now.getHours())
+        {
+            m = now.getMinutes()
+        }
+        for(; m < 60; m++)
+        {
+            times.push(`${h}:${m}`)
+        }
+    }
+
+    $('#datepicker').datetimepicker({
+        format:'Y-m-d H:i:s',
+        minDate: '0',
+        allowTimes: times,
+        minTime: `${now.getHours()}:${now.getMinutes()}`
+    });
+</script>
+<%- include("partials/footer") %>
