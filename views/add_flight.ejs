@@ -49,16 +49,10 @@
 <link rel="stylesheet" href="/datetimepicker-master/build/jquery.datetimepicker.min.css">
 <script src="/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
 <script>
-    const now = new Date()
     const times = []
-    for(let h = now.getHours(); h < 24; h++)
+    for(let h = 0; h < 24; h++)
     {
-        let m = 0
-        if(h == now.getHours())
-        {
-            m = now.getMinutes()
-        }
-        for(; m < 60; m++)
+        for(let m = 0; m < 60; m++)
         {
             times.push(`${h}:${m}`)
         }
@@ -67,8 +61,7 @@
     $('#datepicker').datetimepicker({
         format:'Y-m-d H:i:s',
         minDate: '0',
-        allowTimes: times,
-        minTime: `${now.getHours()}:${now.getMinutes()}`
+        allowTimes: times
     });
 </script>
 <%- include("partials/footer") %>

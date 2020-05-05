@@ -48,15 +48,15 @@ fetchEmployeeData = () => {
             else {
                 airlineEmpl = employees
                 mySqlConnection.query(
-                    "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
-                    (err2, empl) => {
-                        if (err2)
-                            console.log(err2);
-                        else {
-                            airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
-                            airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
-                        }
-                    })
+                "select departments.d_name as d_name, employees.* from employees, departments where employees.d_id = departments.d_id",
+                (err2, empl) => {
+                    if (err2)
+                        console.log(err2);
+                    else {
+                        airlineEmplIds = airlineEmpl.map(empl => empl.e_id)
+                        airportEmpl = empl.filter(e => !airlineEmplIds.includes(e.e_id))
+                    }
+                })
             }
         }
     )
