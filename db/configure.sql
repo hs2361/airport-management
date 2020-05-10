@@ -48,6 +48,30 @@ CREATE TABLE IF NOT EXISTS crew
     f_id INT,
     e_id INT,
     FOREIGN KEY (f_id) REFERENCES flights (f_id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (e_id) REFERENCES airlineEmployees (e_id) ON UPDATE CASCADE ON DELETE CASCADE
-#     CONSTRAINT same_airline CHECK ( (SELECT a_id from airlineEmployees where crew.e_id = airlineEmployees.e_id ) = (select a_id from flights where crew.f_id = flights.f_id) ) ENFORCED
+    FOREIGN KEY (e_id) REFERENCES airlineEmployees (e_id) ON UPDATE CASCADE ON DELETE CASCADE,
+#     CONSTRAINT same_airline CHECK ( (SELECT a_id
+#                                      from airlineEmployees
+#                                      where crew.e_id = airlineEmployees.e_id) = (select a_id
+#                                                                                  from flights
+#                                                                                  where crew.f_id = flights.f_id) ) ENFORCED
+);
+
+CREATE TABLE IF NOT EXISTS shops
+(
+    s_id     INT PRIMARY KEY AUTO_INCREMENT,
+    name     VARCHAR(255),
+    category VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS shopEmployees
+(
+    s_id INT,
+    e_id INT,
+    FOREIGN KEY (s_id) REFERENCES shops (s_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (e_id) REFERENCES employees (e_id) ON UPDATE CASCADE ON DELETE CASCADE,
+#     CONSTRAINT shop_employee CHECK ((SELECT d_name
+#                                      FROM departments
+#                                      WHERE d_id =
+#                                            (SELECT d_id FROM employees WHERE shopEmployees.e_id = employees.e_id)) =
+#                                     'Shop') ENFORCED
 );
