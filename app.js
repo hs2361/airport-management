@@ -326,11 +326,7 @@ app.get("/shops", (req,res) => {
     )
 })
 
-app.get("/shops/new", (req,res) => {
-    res.render("add_shops")
-})
-
-app.post("/shops/new", (req,res) => {
+app.post("/shops", (req,res) => {
     mySqlConnection.query(
         `insert into shops(s_id, name, category) values ('${req.body.name}', '${req.body.category}')`,
         (err) => {
@@ -342,6 +338,10 @@ app.post("/shops/new", (req,res) => {
     )
 })
 
+app.get("/shops/new", (req,res) => {
+    res.render("add_shops")
+})
+
 app.get("/shopemployees", (req, res) => {
     mySqlConnection.query(
         `select employees.e_id, employees.e_name, shops.name, shops.category from employees, shops, shopEmployees where shopEmployees.e_id = employees.e_id and shopEmployees.s_id = shops.s_id`,
@@ -351,6 +351,18 @@ app.get("/shopemployees", (req, res) => {
             else {
                 res.render("shopEmployees", {data: rows})
             }
+        }
+    )
+})
+
+app.post("/shopemployees", (req,res) => {
+    mySqlConnection.query(
+        `insert into shopEmployees (s_id, e_id) values ('${req.body.shop}', '${req.body.employee}')`,
+        (err) => {
+            if(err)
+                res.status(500).send(err)
+            else
+                res.redirect("/shopemployees")
         }
     )
 })
@@ -373,18 +385,6 @@ app.get("/shopemployees/new", (req,res) => {
                     }
                 )
             }
-        }
-    )
-})
-
-app.post("/shopemployees/new", (req,res) => {
-    mySqlConnection.query(
-        `insert into shopEmployees (s_id, e_id) values ('${req.body.shop}', '${req.body.employee}')`,
-        (err) => {
-            if(err)
-                res.status(500).send(err)
-            else
-                res.redirect("/shopemployees")
         }
     )
 })
