@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+<style>
+    h1{
+        padding-bottom: 40px;
+    }
+    .table th{
+        text-align: center;
+    }
+    .table td{
+        text-align: center;
+    }
+</style>
+<div class="container">
+    <h1 class = "text-center pt-5">Shop Employees Data</h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope='col'>Employee ID</th>
+            <th scope='col'>Employee Name</th>
+            <th scope='col'>Shop Name</th>
+            <th scope='col'>Shop Category</th>
+        </thead>
+        <% data.forEach(dat => { %>
+            <tr>
+                <td><%= dat.e_id %></td>
+                <td><%= dat.e_name %></td>
+                <td><%= dat.name %></td>
+                <td><%= dat.category %></td>
+            </tr>
+        <% }) %>
+    </table>
+</div>
+<%- include("partials/footer") %>

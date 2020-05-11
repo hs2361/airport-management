@@ -313,6 +313,82 @@ app.get("/crew/new", (req, res) => {
     )
 })
 
+app.get("/shops", (req,res) => {
+    mySqlConnection.query(
+        `select * from shops`,
+        (err, rows) => {
+            if(err)
+                res.status(500).send(err)
+            else {
+                res.render("shops", {data: rows})
+            }
+        }
+    )
+})
+
+app.get("/shops/new", (req,res) => {
+    res.render("add_shops")
+})
+
+app.post("/shops/new", (req,res) => {
+    mySqlConnection.query(
+        `insert into shops(s_id, name, category) values ('${req.body.name}', '${req.body.category}')`,
+        (err) => {
+            if (err)
+                res.status(500).send(err)
+            else
+                res.redirect("/shops")
+        }
+    )
+})
+
+app.get("/shopemployees", (req, res) => {
+    mySqlConnection.query(
+        `select employees.e_id, employees.e_name, shops.name, shops.category from employees, shops, shopEmployees where shopEmployees.e_id = employees.e_id and shopEmployees.s_id = shops.s_id`,
+        (err, rows) => {
+            if(err)
+                res.status(500).send(err)
+            else {
+                res.render("shopEmployees", {data: rows})
+            }
+        }
+    )
+})
+
+app.get("/shopemployees/new", (req,res) => {
+    mySqlConnection.query(
+        `select e_id, e_name from employees, departments where employees.d_id = departments.d_id and departments.d_name = "Shop" and  employees.e_id not in (select e_id from shopEmployees) `,
+        (e_err,e_rows) => {
+            if(e_err)
+                res.status(500).send(e_err)
+            else {
+                mySqlConnection.query(
+                    `select s_id, name from shops`,
+                    (s_err, s_rows) => {
+                        if(s_err)
+                            res.status(500).send(s_err)
+                        else{ 
+                            res.render("add_shopemployee", {empdata: e_rows, shopdata: s_rows})
+                        }
+                    }
+                )
+            }
+        }
+    )
+})
+
+app.post("/shopemployees/new", (req,res) => {
+    mySqlConnection.query(
+        `insert into shopEmployees (s_id, e_id) values ('${req.body.shop}', '${req.body.employee}')`,
+        (err) => {
+            if(err)
+                res.status(500).send(err)
+            else
+                res.redirect("/shopemployees")
+        }
+    )
+})
+
 app.listen(PORT, () => {
     console.log("Serving app on port", PORT);
 })

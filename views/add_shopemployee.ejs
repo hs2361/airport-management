@@ -1,0 +1,30 @@
+<%- include("partials/header") %>
+<div class="container">
+    <h1 class = "text-center pt-5">Shop Employee Data</h1>
+    <div class="container">
+        <form action="/shopemployees/new" method="post" class = "w-50 mx-auto pt-4"> 
+
+            <div class="form-group">
+                <label for="employee" id = "employee-label" class = 'text-muted'>Airport Employee</label>
+                <select id = "employee" class = "form-control" type="text" name = "employee" placeholder="Employee" required>
+                    <% for(var i=0; i<empdata.length; i++) { %>
+                        <option value="<%= empdata[i].e_id %>"><%= empdata[i].e_name%></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="shop" id = "shop-label" class = 'text-muted'>Shop</label>
+                <select id = "shop" class = "form-control" type="text" name = "shop" placeholder="Shop" required>
+                    <% for(var i=0; i<shopdata.length; i++) { %>
+                        <option value="<%= shopdata[i].s_id %>"><%= shopdata[i].name%></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group d-flex flex-row justify-content-center mt-5">
+                <input type = "submit" class = "btn btn-primary btn-lg" value = "Submit">
+            </div>
+    </div>
+</div>
+<%- include("partials/footer") %>
